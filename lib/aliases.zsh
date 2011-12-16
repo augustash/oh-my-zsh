@@ -1,3 +1,5 @@
+alias reload!='. ~/.zshrc'
+
 # Push and pop directories on directory stack
 alias pu='pushd'
 alias po='popd'
@@ -7,7 +9,6 @@ alias _='sudo'
 
 # Show history
 alias history='fc -l 1'
-
 alias afind='ack-grep -il'
 alias x=extract
 
@@ -15,8 +16,6 @@ alias x=extract
 alias ..='cd ..'
 alias ...='cd ../../' 
 alias -- -='cd -'
-alias ll='ls -lhF'
-alias l='ls -alhF'
 
 # Search
 alias grep="grep -i $GREP_OPTIONS"
@@ -29,15 +28,12 @@ alias zipcreate='zip -y -r -q'
 alias systail='tail -f /var/log/system.log'
 alias cp_folder='cp -Rpv'
 alias psapache='ps -ylC httpd --sort:rss'
-alias mysqldump='mysqldump --opt -Q --order-by-primary'
 alias screen='TERM=screen screen -U'
-alias g='grep -in'
 alias ssh='ssh -4g -o ServerAliveInterval=60'
 
 # Human-readable filesizes
 alias du='du -h'
 alias df='df -h'
-alias ducks='du -cksh * |sort -rn |head -11' 
 alias free='free -m'
 
 # Development tools
@@ -45,9 +41,6 @@ alias opendig="dig @208.67.222.222"
 alias phpcs='phpcs --standard=zend'
 alias sniff='find . -type f -iname "*.php" -print0 |xargs phpcs --standard=zend'
 alias svnaddall='svn status | grep "^\?" | awk "{print \$2}" | xargs svn add' 
-alias svndeletesvnfolders='find . -name ".svn" -exec rm -rf {} \;'
-alias svnexcludeeclipse='svn propset svn:ignore ".buildpath .project .projectOptions .settings .cache" .'
-alias svndiff='svn diff --diff-cmd fmdiff'
 alias mfavicon='convert -colors 256 -resize 16x16 '
 
 # Commands starting with % for pasting from web
