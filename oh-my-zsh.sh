@@ -14,7 +14,7 @@ fpath=($ZSH/functions $ZSH/completions $fpath)
 for config_file ($ZSH/lib/*.zsh) source $config_file
 
 # Load all of the config files in ~/.dotfiles that end in .zsh
-for config_file ($ZSHDOTS/**/*.zsh) source $config_file
+for config_file ($ZSHDOTS/**/*.zsh*oh-my-zsh*) source $config_file
 
 # Set ZSH_CUSTOM to the path where your custom config files
 # and plugins exists, or else we will use the default custom/
