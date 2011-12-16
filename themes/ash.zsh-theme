@@ -1,5 +1,5 @@
 title "zsh" "%m" "%55<...<%~"
-PROMPT=$'\n$(get_host)$(rvm_prompt) in $(directory_name) $(git_prompt_info)$(check_push)\n$CARET %{${reset_color}%}'
+PROMPT=$'\n$(get_host)$(rvm_prompt)in $(directory_name) $(git_prompt_info)$(check_push)\n$CARET %{${reset_color}%}'
 RPROMPT=""
 
 ZSH_THEME_GIT_PROMPT_PREFIX="on "
@@ -24,7 +24,7 @@ get_host() {
 rvm_prompt() {
   if $(which rvm &> /dev/null)
   then
-	  echo "%{$fg_bold[yellow]%}$(rvm tools identifier)%{$reset_color%}"
+	  echo "%{$fg_bold[yellow]%}$(rvm tools identifier)%{$reset_color%} "
 	else
 	  echo ""
   fi
