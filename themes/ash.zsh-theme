@@ -1,15 +1,20 @@
 PROMPT='
-$(user_name) at $(box_name) in $(directory_name) $(git_prompt_info)$(check_push)
+$(user_name) at $(box_name) in $(directory_name) $(git_prompt_info)$(git_prompt_status)$(check_push)
 $(prompt_caret)%{$reset_color%} '
 
-RPROMPT='$(battery_charge)'
+RPROMPT='$(charge_remaining)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="on "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}"
 
+ZSH_THEME_GIT_PROMPT_ADDED=""
+ZSH_THEME_GIT_PROMPT_MODIFIED=""
+ZSH_THEME_GIT_PROMPT_DELETED=""
+ZSH_THEME_GIT_PROMPT_RENAMED=""
+ZSH_THEME_GIT_PROMPT_UNMERGED=""
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[white]%}•"
 
 # Change prompt character based on UID
 prompt_caret() {
@@ -44,13 +49,13 @@ directory_name() {
 }
 
 # If battery powered, show charge remaining
-battery_charge() {
-    if [ -f ~/.bin/battery]
-    then
-        echo "$(~/.bin/battery Discharging` 2>/dev/null)"
-    else
-        return
-    fi
+charge_remaining() {
+    #if [ -f ~/.bin/battery]
+    #then
+    #    echo "$(~/.bin/battery Discharging` 2>/dev/null)"
+    #else
+    #    echo ""
+    #fi
 }
 
 # Print RVM version
@@ -59,7 +64,17 @@ rvm_prompt() {
     then
         echo "%{$fg_bold[yellow]%}$(rvm tools identifier)%{$reset_color%} "
     else
-        return
+        echo ""
+    fi
+}
+
+# Find commits not merged upstream
+check_push() {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    if [[ -n $(git cherry -v origin/${ref#refs/heads/} 2> /dev/null) ]]; then
+        echo " %{$fg_bold[red]%}⚡%{$reset_color%} "
+    else
+        echo ""
     fi
 }
 
@@ -67,16 +82,6 @@ rvm_prompt() {
 git_prompt_info() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
     echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(parse_git_dirty)${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
-
-# Find commits not merged upstream
-check_push() {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    if [[ -n $(cherry -v origin/${ref#refs/heads/} 2> /dev/null) ]]; then
-        echo " %{$fg_bold[magenta]%}⚡%{$reset_color%} "
-    else
-        return
-    fi
 }
 
 # Print Git branch name
