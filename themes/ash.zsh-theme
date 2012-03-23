@@ -31,6 +31,10 @@ user_name() {
     echo "%{$fg[magenta]%}%n%{$reset_color%}"
 }
 
+charge_remaining() {
+    echo `~/.bin/battery Discharging` 2>/dev/null
+}
+
 # Capture machine's hostname
 box_name() {
     if [ -f ~/.box-name ]
@@ -48,16 +52,6 @@ directory_name() {
     echo "%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}"
 }
 
-# If battery powered, show charge remaining
-charge_remaining() {
-    #if [ -f ~/.bin/battery]
-    #then
-    #    echo "$(~/.bin/battery Discharging` 2>/dev/null)"
-    #else
-    #    echo ""
-    #fi
-}
-
 # Print RVM version
 rvm_prompt() {
     if $(which rvm &> /dev/null)
@@ -72,7 +66,7 @@ rvm_prompt() {
 check_push() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
     if [[ -n $(git cherry -v origin/${ref#refs/heads/} 2> /dev/null) ]]; then
-        echo " %{$fg_bold[red]%}⚡%{$reset_color%} "
+        echo "%{$fg_bold[red]%}⚡%{$reset_color%} "
     else
         echo ""
     fi
