@@ -2,7 +2,7 @@ PROMPT='
 $(user_name) at $(box_name) in $(directory_name) $(git_prompt_info)$(git_prompt_status)$(check_push)
 $(prompt_caret)%{$reset_color%} '
 
-RPROMPT='$(charge_remaining)'
+RPROMPT=''
 
 ZSH_THEME_GIT_PROMPT_PREFIX="on "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -18,12 +18,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[white]%}•"
 
 # Change prompt character based on UID
 prompt_caret() {
-    if [ $UID -eq 0 ]
-    then
-        echo "%{$fg_bold[magenta]%}»"
-    else
-        echo "%{$fg[white]%}›"
-    fi
+    if [ $UID -eq 0 ]; then echo "%{$fg[red]%}»"; else echo "%{$fg[white]%}›"; fi
 }
 
 # Current user
@@ -32,18 +27,12 @@ user_name() {
 }
 
 charge_remaining() {
-    echo `~/.bin/battery Discharging` 2>/dev/null
+    echo `~/.bin/battery Discharging 2>/dev/null`
 }
 
 # Capture machine's hostname
 box_name() {
-    if [ -f ~/.box-name ]
-    then
-        HOST="$(cat ~/.box-name)"
-    else
-        HOST="$(hostname -s)"
-    fi
-
+    if [ -f ~/.box-name ]; then HOST="$(cat ~/.box-name)"; else HOST="$(hostname -s)"; fi
     echo "%{$fg[yellow]%}$HOST%{$reset_color%}"
 }
 

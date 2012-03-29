@@ -1,7 +1,7 @@
+# editor
 export EDITOR='vim'
-export GIT_EDITOR='vim'
-export SVN_EDITOR='vim'
+export GIT_EDITOR='$EDITOR'
+export SVN_EDITOR='$EDITOR'
 
-export TZ="/usr/share/zoneinfo/UTC"
-
-export TERM="xterm-256color"
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
