@@ -23,3 +23,7 @@ alias du1='du -h --max-depth=1'
 alias free='free -m'
 alias l='ls -lah'
 alias ll='ls -lh'
+
+# Disable auto-corrections
+alias sudo='nocorrect sudo'
+alias vim='nocorrect vim'
