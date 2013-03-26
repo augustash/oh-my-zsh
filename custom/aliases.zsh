@@ -27,3 +27,4 @@ alias ll='ls -lh'
 # Disable auto-corrections
 alias sudo='nocorrect sudo'
 alias vim='nocorrect vim'
+alias php='nocorrect php'
